@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 320px;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #4facfe;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #007bff;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .underweight { color: orange; }
+        .normal { color: green; }
+        .overweight { color: darkorange; }
+        .obese { color: red; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>BMI Calculator</h2>
+
+        <input type="number" id="weight" placeholder="Enter weight (kg)">
+        <input type="number" id="height" placeholder="Enter height (m)">
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            let weight = document.getElementById("weight").value;
+            let height = document.getElementById("height").value;
+            let result = document.getElementById("result");
+
+            if (weight === "" || height === "") {
+                result.innerText = "Please enter both values.";
+                result.className = "";
+                return;
+            }
+
+            let bmi = weight / (height * height);
+            bmi = bmi.toFixed(2);
+
+            let category = "";
+            let className = "";
+
+            if (bmi < 18.5) {
+                category = "Underweight";
+                className = "underweight";
+            } else if (bmi < 24.9) {
+                category = "Normal weight";
+                className = "normal";
+            } else if (bmi < 29.9) {
+                category = "Overweight";
+                className = "overweight";
+            } else {
+                category = "Obese";
+                className = "obese";
+            }
+
+            result.innerText = "Your BMI is " + bmi + " (" + category + ")";
+            result.className = className;
+        }
+    </script>
+
+</body>
+</html>
